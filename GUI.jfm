@@ -1,9 +1,9 @@
 object GUI: TFGUIForm
-  Left = 610
-  Top = 117
+  Left = 996
+  Top = 611
   BorderIcons = [biSystemMenu]
   Caption = 'GUI'
-  ClientHeight = 335
+  ClientHeight = 388
   ClientWidth = 276
   Color = clBtnFace
   ParentFont = True
@@ -50,7 +50,7 @@ object GUI: TFGUIForm
     Left = 8
     Top = 104
     Width = 110
-    Height = 100
+    Height = 148
     Hint = 'jList1'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -59,6 +59,7 @@ object GUI: TFGUIForm
     Font.Style = [fsBold]
     Foreground = 3355443
     Background = clWhite
+    valueChanged = 'jList1_ValueChanged'
     SelectionMode = MULTIPLE_INTERVAL
     FixedCellHeight = -1
     FixedCellWidth = -1
@@ -131,7 +132,7 @@ object GUI: TFGUIForm
     Text = ''
     Editable = True
   end
-  object jTextField2: TJTextField
+  object attrNameTextField: TJTextField
     Tag = 2
     Left = 160
     Top = 104
@@ -173,7 +174,7 @@ object GUI: TFGUIForm
     DisplayedMnemonic = 0
     DisplayedMnemonicIndex = 0
   end
-  object rbPrivate1: TJRadioButton
+  object attrIsPrivateRadioButton: TJRadioButton
     Tag = 6
     Left = 120
     Top = 128
@@ -190,7 +191,7 @@ object GUI: TFGUIForm
     Selected = False
     Text = 'private'
   end
-  object rbPublic1: TJRadioButton
+  object attrIsPublicRadioButton: TJRadioButton
     Tag = 6
     Left = 200
     Top = 128
@@ -207,7 +208,7 @@ object GUI: TFGUIForm
     Selected = False
     Text = 'public'
   end
-  object jComboBox1: TJComboBox
+  object attrTypeComboBox: TJComboBox
     Tag = 9
     Left = 120
     Top = 152
@@ -230,12 +231,13 @@ object GUI: TFGUIForm
       'boolean'
       'String'
       'char'
-      'byte')
+      'byte'
+      'void')
   end
-  object bHinzufuegen: TJButton
+  object attrHinzufuegenButton: TJButton
     Tag = 4
     Left = 120
-    Top = 176
+    Top = 224
     Width = 75
     Height = 25
     Hint = 'jButton1'
@@ -246,7 +248,7 @@ object GUI: TFGUIForm
     Font.Style = [fsBold]
     Foreground = 3355443
     Background = 15658734
-    actionPerformed = 'bHinzufuegen_ActionPerformed'
+    actionPerformed = 'attrHinzufuegenButton_ActionPerformed'
     Text = 'Hinzuf'#252'gen'
     Mnemonic = 0
     DisplayedMnemonicIndex = 0
@@ -276,10 +278,10 @@ object GUI: TFGUIForm
     Border.MatteBottom = 0
     Border.MatteRight = 0
   end
-  object bEntfernen: TJButton
+  object attrEntfernenButton: TJButton
     Tag = 4
     Left = 200
-    Top = 176
+    Top = 224
     Width = 75
     Height = 25
     Hint = 'jButton2'
@@ -290,7 +292,7 @@ object GUI: TFGUIForm
     Font.Style = [fsBold]
     Foreground = 3355443
     Background = 15658734
-    actionPerformed = 'bEntfernen_ActionPerformed'
+    actionPerformed = 'attrEntfernenButton_ActionPerformed'
     Text = 'Entfernen'
     Mnemonic = 0
     DisplayedMnemonicIndex = 0
@@ -323,9 +325,9 @@ object GUI: TFGUIForm
   object klasseTextArea: TJTextArea
     Tag = 3
     Left = 8
-    Top = 232
+    Top = 256
     Width = 264
-    Height = 100
+    Height = 124
     Cursor = crIBeam
     Hint = 'jTextArea1'
     Font.Charset = DEFAULT_CHARSET
@@ -341,5 +343,56 @@ object GUI: TFGUIForm
     WrapStyleWord = False
     TabSize = 8
     Editable = True
+  end
+  object attrGetterCheckBox: TJCheckBox
+    Tag = 5
+    Left = 120
+    Top = 176
+    Width = 60
+    Height = 20
+    Hint = 'jCheckBox1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Dialog'
+    Font.Style = [fsBold]
+    Foreground = 3355443
+    Background = clBtnFace
+    Selected = False
+    Text = 'getter'
+  end
+  object attrSetterCheckBox: TJCheckBox
+    Tag = 5
+    Left = 200
+    Top = 176
+    Width = 60
+    Height = 20
+    Hint = 'jCheckBox1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Dialog'
+    Font.Style = [fsBold]
+    Foreground = 3355443
+    Background = clBtnFace
+    Selected = False
+    Text = 'setter'
+  end
+  object attrKonstruktorCheckBox: TJCheckBox
+    Tag = 5
+    Left = 120
+    Top = 200
+    Width = 156
+    Height = 20
+    Hint = 'jCheckBox1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Dialog'
+    Font.Style = [fsBold]
+    Foreground = 3355443
+    Background = clBtnFace
+    Selected = False
+    Text = 'Konstruktorparameter'
   end
 end

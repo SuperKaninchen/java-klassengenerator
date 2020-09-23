@@ -6,44 +6,13 @@ public class Generator {
   private String klassenVorlage = "\n"+
   "%isPrivate class %name {\n"+
   "  %attribute\n"+
-  "  %isPrivate %name() {\n"+
+  "  %isPrivate %name(%parameter) {\n"+
   "  \n"+
   "  }\n"+
   "  %getter\n"+
   "  %setter\n"+
   "}\n"+
   "";
-
-  private class Attribut {
-    public String name;
-    public String typ;
-    public boolean privat;
-    public boolean setter;
-    public boolean getter;
-    private String attributVorlage = "%isPrivate %type %name;";
-    private String getterVorlage = "public %type get%Name() {\n" +
-    "  return %name;\n" +
-    "}";
-    private String setterVorlage = "public void get%Name(%type p%Name) {\n" +
-    "  %name = p%Name;\n" +
-    "}";
-
-    public Attribut(String pName, String pTyp, boolean pPrivat, boolean pSetter, boolean pGetter) {
-      name = pName;
-      typ = pTyp;
-      privat = pPrivat;
-      setter = pSetter;
-      getter = pGetter;
-    }
-
-    public String asString() {
-      return attributVorlage.replace("%name", name).replace("%type", typ).replace("%isPrivate", Utils.boolToPString(privat));
-    }
-    public String getGetterString() {
-      return getterVorlage.replace("%type", typ).replace("%Name", capitalize(name));
-    }
-
-  }
 
   private class Klasse {
 
@@ -80,15 +49,6 @@ public class Generator {
     k.setIsPrivate(pIsPrivate);
   }
 
-  private String capitalize(String str){
-    if(str == null || str.length() == 0)
-      return "";
-    if(str.length() == 1)
-      return str.toUpperCase();
-    return str.substring(0, 1).toUpperCase() + str.substring(1);
-
-  }
-
   private String getAttrString() {
     String str = "";
     for(int i = 0; i < k.attribute.size(); i++) {
@@ -114,7 +74,7 @@ public class Generator {
     return tmp;
   }
   public void neuesAttribut() {
-    k.attribute.add(new Attribut("null", "void", false, false, false));
+    k.attribute.add(new Attribut("null", "void", false, false, false, false));
   }
   public Object[] attributNamen() {
     if(k.attribute.size() <= 0)
@@ -123,6 +83,9 @@ public class Generator {
     for(Attribut a : k.attribute)
       tmp.add(a.name);
     return tmp.toArray();
+  }
+  public Attribut getAttr(int index) {
+    return k.attribute.get(index);
   }
 
 }

@@ -20,16 +20,19 @@ public class GUI extends JFrame {
   private JLabel lName = new JLabel();
   private JRadioButton klasseIsPrivateRadioButton = new JRadioButton();
   private JTextField klassenNameTextField = new JTextField();
-  private JTextField jTextField2 = new JTextField();
+  private JTextField attrNameTextField = new JTextField();
   private JLabel lName1 = new JLabel();
-  private JRadioButton rbPrivate1 = new JRadioButton();
-  private JRadioButton rbPublic1 = new JRadioButton();
-  private JComboBox<String> jComboBox1 = new JComboBox<String>();
-    private DefaultComboBoxModel<String> jComboBox1Model = new DefaultComboBoxModel<String>();
-  private JButton bHinzufuegen = new JButton();
-  private JButton bEntfernen = new JButton();
+  private JRadioButton attrIsPrivateRadioButton = new JRadioButton();
+  private JRadioButton attrIsPublicRadioButton = new JRadioButton();
+  private JComboBox<String> attrTypeComboBox = new JComboBox<String>();
+    private DefaultComboBoxModel<String> attrTypeComboBoxModel = new DefaultComboBoxModel<String>();
+  private JButton attrHinzufuegenButton = new JButton();
+  private JButton attrEntfernenButton = new JButton();
   private JTextArea klasseTextArea = new JTextArea("");
     private JScrollPane klasseTextAreaScrollPane = new JScrollPane(klasseTextArea);
+  private JCheckBox attrGetterCheckBox = new JCheckBox();
+  private JCheckBox attrSetterCheckBox = new JCheckBox();
+  private JCheckBox attrKonstruktorCheckBox = new JCheckBox();
   // Ende Attribute
 
   Generator g = new Generator();
@@ -38,8 +41,8 @@ public class GUI extends JFrame {
     // Frame-Initialisierung
     super();
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    int frameWidth = 292;
-    int frameHeight = 374;
+    int frameWidth = 292; 
+    int frameHeight = 427;
     setSize(frameWidth, frameHeight);
     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (d.width - getSize().width) / 2;
@@ -55,7 +58,12 @@ public class GUI extends JFrame {
     lAttribute.setText("Attribute:");
     cp.add(lAttribute);
     jList1.setModel(jList1Model);
-    jList1ScrollPane.setBounds(8, 104, 110, 100);
+    jList1ScrollPane.setBounds(8, 104, 110, 148);
+    jList1.addListSelectionListener(new ListSelectionListener() { 
+      public void valueChanged(ListSelectionEvent evt) { 
+        jList1_ValueChanged(evt);
+      }
+    });
     cp.add(jList1ScrollPane);
     lName.setBounds(8, 8, 38, 20);
     lName.setText("Name:");
@@ -76,47 +84,62 @@ public class GUI extends JFrame {
       }
     });
     cp.add(klassenNameTextField);
-    jTextField2.setBounds(160, 104, 110, 20);
-    cp.add(jTextField2);
+    attrNameTextField.setBounds(160, 104, 110, 20);
+    cp.add(attrNameTextField);
     lName1.setBounds(120, 104, 38, 20);
     lName1.setText("Name:");
     cp.add(lName1);
-    rbPrivate1.setBounds(120, 128, 76, 20);
-    rbPrivate1.setOpaque(false);
-    cp.add(rbPrivate1);
-    rbPublic1.setBounds(200, 128, 68, 20);
-    rbPublic1.setOpaque(false);
-    cp.add(rbPublic1);
-    jComboBox1.setModel(jComboBox1Model);
-    jComboBox1.setBounds(120, 152, 150, 20);
-    jComboBox1Model.addElement("int");
-    jComboBox1Model.addElement("float");
-    jComboBox1Model.addElement("double");
-    jComboBox1Model.addElement("boolean");
-    jComboBox1Model.addElement("String");
-    jComboBox1Model.addElement("char");
-    jComboBox1Model.addElement("byte");
-    cp.add(jComboBox1);
-    bHinzufuegen.setBounds(120, 176, 75, 25);
-    bHinzufuegen.setText("Hinzufügen");
-    bHinzufuegen.setMargin(new Insets(2, 2, 2, 2));
-    bHinzufuegen.addActionListener(new ActionListener() {
+    attrIsPrivateRadioButton.setBounds(120, 128, 76, 20);
+    attrIsPrivateRadioButton.setText("private");
+    attrIsPrivateRadioButton.setOpaque(false);
+    cp.add(attrIsPrivateRadioButton);
+    attrIsPublicRadioButton.setBounds(200, 128, 68, 20);
+    attrIsPublicRadioButton.setText("public");
+    attrIsPublicRadioButton.setOpaque(false);
+    cp.add(attrIsPublicRadioButton);
+    attrTypeComboBox.setModel(attrTypeComboBoxModel);
+    attrTypeComboBox.setBounds(120, 152, 150, 20);
+    attrTypeComboBoxModel.addElement("int");
+    attrTypeComboBoxModel.addElement("float");
+    attrTypeComboBoxModel.addElement("double");
+    attrTypeComboBoxModel.addElement("boolean");
+    attrTypeComboBoxModel.addElement("String");
+    attrTypeComboBoxModel.addElement("char");
+    attrTypeComboBoxModel.addElement("byte");
+    attrTypeComboBoxModel.addElement("void");
+    cp.add(attrTypeComboBox);
+    attrHinzufuegenButton.setBounds(120, 224, 75, 25);
+    attrHinzufuegenButton.setText("Hinzufügen");
+    attrHinzufuegenButton.setMargin(new Insets(2, 2, 2, 2));
+    attrHinzufuegenButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
-        bHinzufuegen_ActionPerformed(evt);
+        attrHinzufuegenButton_ActionPerformed(evt);
       }
     });
-    cp.add(bHinzufuegen);
-    bEntfernen.setBounds(200, 176, 75, 25);
-    bEntfernen.setText("Entfernen");
-    bEntfernen.setMargin(new Insets(2, 2, 2, 2));
-    bEntfernen.addActionListener(new ActionListener() {
+    cp.add(attrHinzufuegenButton);
+    attrEntfernenButton.setBounds(200, 224, 75, 25);
+    attrEntfernenButton.setText("Entfernen");
+    attrEntfernenButton.setMargin(new Insets(2, 2, 2, 2));
+    attrEntfernenButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
-        bEntfernen_ActionPerformed(evt);
+        attrEntfernenButton_ActionPerformed(evt);
       }
     });
-    cp.add(bEntfernen);
-    klasseTextAreaScrollPane.setBounds(8, 232, 264, 100);
+    cp.add(attrEntfernenButton);
+    klasseTextAreaScrollPane.setBounds(8, 256, 264, 124);
     cp.add(klasseTextAreaScrollPane);
+    attrGetterCheckBox.setBounds(120, 176, 60, 20);
+    attrGetterCheckBox.setOpaque(false);
+    attrGetterCheckBox.setText("getter");
+    cp.add(attrGetterCheckBox);
+    attrSetterCheckBox.setBounds(200, 176, 60, 20);
+    attrSetterCheckBox.setOpaque(false);
+    attrSetterCheckBox.setText("setter");
+    cp.add(attrSetterCheckBox);
+    attrKonstruktorCheckBox.setBounds(120, 200, 156, 20);
+    attrKonstruktorCheckBox.setOpaque(false);
+    attrKonstruktorCheckBox.setText("Konstruktorparameter");
+    cp.add(attrKonstruktorCheckBox);
     // Ende Komponenten
 
     setVisible(true);
@@ -128,14 +151,14 @@ public class GUI extends JFrame {
     new GUI();
   } // end of main
 
-  public void bHinzufuegen_ActionPerformed(ActionEvent evt) {
+  public void attrHinzufuegenButton_ActionPerformed(ActionEvent evt) {
     g.neuesAttribut();
     updateList();
-  } // end of bHinzufuegen_ActionPerformed
+  } // end of attrHinzufuegenButton_ActionPerformed
 
-  public void bEntfernen_ActionPerformed(ActionEvent evt) {
+  public void attrEntfernenButton_ActionPerformed(ActionEvent evt) {
 
-  } // end of bEntfernen_ActionPerformed
+  } // end of attrEntfernenButton_ActionPerformed
 
   public void updateKlasse() {
     g.updateKlasse(klassenNameTextField.getText(), klasseIsPrivateRadioButton.isSelected());
@@ -149,6 +172,16 @@ public class GUI extends JFrame {
   public void updateTextArea() {
     klasseTextArea.setText(g.klasseAlsString());
   }
+  public void updateAttrTextFields() {
+    Attribut tmp = g.getAttr(jList1.getSelectedIndex());
+    attrNameTextField.setText(tmp.name);
+    attrIsPrivateRadioButton.setSelected(tmp.privat);
+    attrIsPublicRadioButton.setSelected(!tmp.privat);  
+    attrTypeComboBox.setSelectedItem(tmp.typ);
+    attrGetterCheckBox.setSelected(tmp.getter);
+    attrSetterCheckBox.setSelected(tmp.setter);  
+    attrKonstruktorCheckBox.setSelected(tmp.konstruktor);
+  }
 
   public void klassenNameTextField_ActionPerformed(ActionEvent evt) {
     updateKlasse();
@@ -157,6 +190,10 @@ public class GUI extends JFrame {
   public void klasseIsPrivateRadioButton_ActionPerformed(ActionEvent evt) {
     updateKlasse();
   } // end of klasseIsPrivateRadioButton_ActionPerformed
+
+  public void jList1_ValueChanged(ListSelectionEvent evt) {
+    updateAttrTextFields();
+  } // end of jList1_ValueChanged
 
   // Ende Methoden
 } // end of class GUI
