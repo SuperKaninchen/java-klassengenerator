@@ -173,14 +173,15 @@ public class GUI extends JFrame {
     klasseTextArea.setText(g.klasseAlsString());
   }
   public void updateAttrTextFields() {
-    Attribut tmp = g.getAttr(jList1.getSelectedIndex());
-    attrNameTextField.setText(tmp.name);
-    attrIsPrivateRadioButton.setSelected(tmp.privat);
-    attrIsPublicRadioButton.setSelected(!tmp.privat);  
-    attrTypeComboBox.setSelectedItem(tmp.typ);
-    attrGetterCheckBox.setSelected(tmp.getter);
-    attrSetterCheckBox.setSelected(tmp.setter);  
-    attrKonstruktorCheckBox.setSelected(tmp.konstruktor);
+    int index = jList1.getSelectedIndex();
+    Object[] tmp = g.getAttrAsArray(index);
+    attrNameTextField.setText((String)tmp[0]);
+    attrIsPrivateRadioButton.setSelected((boolean)tmp[2]);
+    attrIsPublicRadioButton.setSelected(!(boolean)tmp[2]);  
+    attrTypeComboBox.setSelectedItem((String)tmp[1]);
+    attrGetterCheckBox.setSelected((boolean)tmp[3]);
+    attrSetterCheckBox.setSelected((boolean)tmp[4]);  
+    attrKonstruktorCheckBox.setSelected((boolean)tmp[5]);
   }
 
   public void klassenNameTextField_ActionPerformed(ActionEvent evt) {
